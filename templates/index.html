@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Race/Ethnicity Classifier</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 2rem; max-width: 560px; }
+    label { display:block; margin:.5rem 0 .25rem; }
+    input { width: 100%; padding:.5rem; box-sizing: border-box; }
+    button { margin-top: 1rem; padding:.6rem 1rem; }
+    .pred { margin-top:1.2rem; font-weight:bold; }
+    .error { margin-top:1.2rem; color:#b00020; }
+  </style>
+</head>
+<body>
+  <h1>Predict Race/Ethnicity from Scores</h1>
+
+  <form action="{{ url_for('predict') }}" method="POST">
+    <label>Math score</label>
+    <input type="number" step="1" name="math_score" value="{{ m or '' }}" required />
+
+    <label>Reading score</label>
+    <input type="number" step="1" name="reading_score" value="{{ r or '' }}" required />
+
+    <label>Writing score</label>
+    <input type="number" step="1" name="writing_score" value="{{ w or '' }}" required />
+
+    <button type="submit">Predict</button>
+  </form>
+
+  {% if predict %}
+    <p class="pred">Predicted race/ethnicity: {{ predict }}</p>
+  {% endif %}
+
+  {% if error %}
+    <p class="error">{{ error }}</p>
+  {% endif %}
+</body>
+</html>
+
+
